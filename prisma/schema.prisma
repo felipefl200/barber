@@ -6,8 +6,9 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model User {
@@ -25,10 +26,10 @@ model Barbershop {
   address  String
   imageUrl String
   services Service[]
-  bookings   Booking[]
+  bookings Booking[]
 
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Service {
@@ -38,10 +39,10 @@ model Service {
   description  String
   barbershopId String
   barbershop   Barbershop @relation(fields: [barbershopId], references: [id])
-  bookings   Booking[]
+  bookings     Booking[]
 
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Booking {
