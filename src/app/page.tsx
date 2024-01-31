@@ -1,4 +1,4 @@
-import { Header } from '@/components/Header'
+import { Header } from '@/components/header'
 import { BarbershopItem } from '@/components/barbershop-item'
 import { BookingItem } from '@/components/booking-item'
 import { Search } from '@/components/search'
