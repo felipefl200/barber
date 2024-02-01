@@ -35,14 +35,16 @@ export function BarbershopInfo({ barbershop }: BarbershopInfoProps) {
                 <Image src={barbershop.imageUrl} fill alt={barbershop.name} style={{ objectFit: 'cover' }} />
             </div>
             <div className="border-b border-solid border-secondary px-5 pb-6 pt-3">
-                <h1 className="text-xl font-bold">{barbershop.name}</h1>
-                <div className="mt-2 flex items-center gap-1">
-                    <MapPinIcon className="text-primary" size={18} />
-                    <p className="text-sm">{barbershop.address}</p>
-                </div>
-                <div className="mt-2 flex items-center gap-1">
-                    <StarIcon className="text-primary" size={18} />
-                    <p className="text-sm">5.0 (899 avaliações)</p>
+                <div className="mx-auto max-w-5xl pl-2">
+                    <h1 className="text-xl font-bold">{barbershop.name}</h1>
+                    <div className="mt-2 flex items-center gap-1">
+                        <MapPinIcon className="text-primary" size={18} />
+                        <p className="text-sm">{barbershop.address}</p>
+                    </div>
+                    <div className="mt-2 flex items-center gap-1">
+                        <StarIcon className="text-primary" size={18} />
+                        <p className="text-sm">5.0 (899 avaliações)</p>
+                    </div>
                 </div>
             </div>
         </div>

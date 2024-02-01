@@ -17,7 +17,7 @@ export function BarbershopItem({ barbershop }: BarbershopItemsProps) {
         router.push(`/barbershop/${barbershop.id}`)
     }
     return (
-        <Card className="min-w-[167px] max-w-[167px] rounded-2xl">
+        <Card className="min-w-[167px] max-w-[167px] dark:rounded-2xl">
             <CardContent className="p-0">
                 <div className="relative h-[159px] w-full px-1">
                     <Badge
@@ -32,7 +32,7 @@ export function BarbershopItem({ barbershop }: BarbershopItemsProps) {
                         alt={barbershop.name}
                         fill
                         style={{ objectFit: 'cover' }}
-                        className="rounded-t-2xl"
+                        className="dark:rounded-t-2xl"
                     />
                 </div>
                 <div className="px-3 pb-3">

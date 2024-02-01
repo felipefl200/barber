@@ -19,9 +19,9 @@ export default async function BarbershopDetails({ params }: BarbershopDetailsPro
     })
     if (!barbershop) return null
     return (
-        <div>
+        <main>
             <BarbershopInfo barbershop={barbershop} />
-            <div className="mb-2 px-2">
+            <div className="mx-auto mb-2 max-w-5xl px-2">
                 {barbershop.services.map((service) => (
                     <ServiceItem
                         key={service.id}
@@ -31,6 +31,6 @@ export default async function BarbershopDetails({ params }: BarbershopDetailsPro
                     />
                 ))}
             </div>
-        </div>
+        </main>
     )
 }

@@ -7,7 +7,7 @@ export function BookingItem() {
         <Card>
             <CardContent className="flex items-center justify-between p-4">
                 <div className="flex flex-col gap-3">
-                    <Badge className="w-fit bg-[#221c3d] text-primary hover:cursor-default hover:bg-[#221c3d]">
+                    <Badge className="w-fit hover:cursor-default hover:bg-primary dark:bg-[#221c3d] dark:text-primary dark:hover:bg-[#221c3d]">
                         Confirmado
                     </Badge>
                     <h2 className="font-bold">Corte de Cabelo</h2>

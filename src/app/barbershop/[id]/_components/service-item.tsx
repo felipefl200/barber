@@ -126,7 +126,7 @@ export function ServiceItem({ service, isAuthenticated, barbershop }: ServiceIte
                                         Reservar
                                     </Button>
                                 </SheetTrigger>
-                                <SheetContent className="p-0">
+                                <SheetContent className="p-0 max-h-screen">
                                     <SheetHeader className="border-b border-solid border-secondary px-5 py-6 text-left">
                                         <SheetTitle>Fazer reserva</SheetTitle>
                                     </SheetHeader>
@@ -138,6 +138,7 @@ export function ServiceItem({ service, isAuthenticated, barbershop }: ServiceIte
                                             fromDate={new Date()}
                                             locale={ptBR}
                                             styles={{
+                                                caption_start: { width: '100%' },
                                                 head_cell: { width: '100%', textTransform: 'capitalize' },
                                                 cell: { width: '100%' },
                                                 button: { width: '100%' },
@@ -154,7 +155,7 @@ export function ServiceItem({ service, isAuthenticated, barbershop }: ServiceIte
                                                     onClick={() => handleHourClick(time)}
                                                     key={time}
                                                     variant={hour === time ? 'default' : 'outline'}
-                                                    className="rounded-full border border-input"
+                                                    className="dark:rounded-full border border-input"
                                                 >
                                                     {time}
                                                 </Button>

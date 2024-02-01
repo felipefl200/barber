@@ -4,13 +4,13 @@ import { ToogleTheme } from './toogle-theme'
 import { Card, CardContent } from '@/components/ui/card'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { Button } from '@/components/ui/button'
-import {  MenuIcon } from 'lucide-react'
+import { MenuIcon } from 'lucide-react'
 import { SideMenu } from './side-menu'
 
 export function Header() {
     return (
         <Card className="rounded-none">
-            <CardContent className="flex items-center justify-between p-5">
+            <CardContent className="flex items-center justify-between p-5 max-w-6xl mx-auto">
                 <div className="max-w-[160px]">
                     <Image src={Logo} width={400} height={160} alt="Logo" />
                 </div>
