@@ -36,11 +36,11 @@ export function ServiceItem({ service, isAuthenticated, barbershop }: ServiceIte
     useEffect(() => {
         if (!date) return
         const refreshAvailableHours = async () => {
-            const dayBookingsDB = await getDayBookings(date)
+            const dayBookingsDB = await getDayBookings(barbershop.id, date)
             setDatBookings(dayBookingsDB)
         }
         refreshAvailableHours()
-    }, [date])
+    }, [date, barbershop.id])
 
     const handleBookingClick = () => {
         if (!isAuthenticated) return signIn('github')
