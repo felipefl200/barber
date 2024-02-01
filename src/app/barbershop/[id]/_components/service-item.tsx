@@ -7,11 +7,14 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Sheet, SheetContent, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
 import { formatCurrency } from '@/utils/format-currency'
 import { Barbershop, Service } from '@prisma/client'
-import { signIn } from 'next-auth/react'
+import { signIn, useSession } from 'next-auth/react'
 import Image from 'next/image'
 import { ptBR } from 'date-fns/locale'
 import { generateDayTimeList } from '@/utils/hours'
 import { format } from 'date-fns/format'
+import { saveBooking } from '@/actions/save-booking'
+import { setHours, setMinutes } from 'date-fns'
+import { Loader2 } from 'lucide-react'
 
 interface ServiceItemProps {
     barbershop: Barbershop
@@ -19,8 +22,11 @@ interface ServiceItemProps {
     isAuthenticated?: boolean
 }
 export function ServiceItem({ service, isAuthenticated, barbershop }: ServiceItemProps) {
+    const { data } = useSession()
     const [date, setDate] = useState<Date | undefined>(undefined)
     const [hour, setHour] = useState<string | undefined>()
+    const [isLoading, setIsLoading] = useState(false)
+
     const handleBookingClick = () => {
         if (!isAuthenticated) return signIn('github')
     }
@@ -34,6 +40,26 @@ export function ServiceItem({ service, isAuthenticated, barbershop }: ServiceIte
     const timeList = useMemo(() => {
         return date ? generateDayTimeList(date) : []
     }, [date])
+
+    const handleBookingSubmit = async () => {
+        setIsLoading(true)
+        try {
+            if (!hour || !date || !data) return null
+
+            const hourFormat = Number(hour.split(':')[0])
+            const minuteFormat = Number(hour.split(':')[1])
+            const newDate = setMinutes(setHours(date, hourFormat), minuteFormat)
+
+            const booking = await saveBooking({
+                serviceId: service.id,
+                userId: data.user.id,
+                date: newDate.toString(),
+                barbershopId: barbershop.id,
+            })
+            console.log(booking)
+        } catch (error) {}
+        setIsLoading(false)
+    }
     return (
         <Card className="mt-2">
             <CardContent className="p-3">
@@ -125,7 +151,10 @@ export function ServiceItem({ service, isAuthenticated, barbershop }: ServiceIte
                                         </Card>
                                     </div>
                                     <SheetFooter className="px-5">
-                                        <Button disabled={!hour || !date}>Confirmar Reserva</Button>
+                                        <Button onClick={handleBookingSubmit} disabled={!hour || !date || isLoading}>
+                                            Confirmar Reserva
+                                            {isLoading && <Loader2 className="ml-2 h-4 w-4 animate-spin" />}
+                                        </Button>
                                     </SheetFooter>
                                 </SheetContent>
                             </Sheet>
