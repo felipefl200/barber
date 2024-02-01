@@ -23,7 +23,12 @@ export default async function BarbershopDetails({ params }: BarbershopDetailsPro
             <BarbershopInfo barbershop={barbershop} />
             <div className="mb-2 px-2">
                 {barbershop.services.map((service) => (
-                    <ServiceItem key={service.id} service={service} isAuthenticated={!!session?.user} />
+                    <ServiceItem
+                        key={service.id}
+                        barbershop={barbershop}
+                        service={service}
+                        isAuthenticated={!!session?.user}
+                    />
                 ))}
             </div>
         </div>
