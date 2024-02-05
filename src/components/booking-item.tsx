@@ -1,28 +1,44 @@
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Prisma } from '@prisma/client'
+import { getDate, getHour, getMonth } from '@/utils/format-date'
+import { isPast } from 'date-fns'
 
-export function BookingItem() {
+interface BookingItemProps {
+    booking: Prisma.BookingGetPayload<{
+        include: {
+            service: true
+            barbershop: true
+        }
+    }>
+}
+
+export function BookingItem({ booking }: BookingItemProps) {
     return (
         <Card>
-            <CardContent className="flex items-center justify-between p-4">
-                <div className="flex flex-col gap-3">
-                    <Badge className="w-fit hover:cursor-default hover:bg-primary dark:bg-[#221c3d] dark:text-primary dark:hover:bg-[#221c3d]">
-                        Confirmado
+            <CardContent className="flex px-0 py-0">
+                <div className="flex flex-[2] flex-col gap-2 py-5 pl-5">
+                    <Badge
+                        className="w-fit hover:cursor-default"
+                        variant={isPast(booking.date) ? 'secondary' : 'default'}
+                    >
+                        {isPast(booking.date) ? 'Finalizado' : 'Confirmado'}
                     </Badge>
-                    <h2 className="font-bold">Corte de Cabelo</h2>
+                    <h2 className="md:pl-8 font-bold">{booking?.service.name}</h2>
                     <div className="flex items-center gap-2">
-                        <Avatar className="h-6 w-6">
-                            <AvatarImage src="https://utfs.io/f/c97a2dc9-cf62-468b-a851-bfd2bdde775f-16p.png" />
+                        <Avatar className="h-6 w-6 md:ml-8">
+                            <AvatarImage src={booking?.barbershop.imageUrl} />
                             <AvatarFallback>A</AvatarFallback>
                         </Avatar>
-                        <h3 className="text-sm">Vintage Barber</h3>
+                        <h3 className="text-sm">{booking?.barbershop.name}</h3>
                     </div>
                 </div>
-                <div className="flex flex-col items-center justify-center border-l border-solid border-secondary pl-5">
-                    <p className="text-sm">Fevereiro</p>
-                    <p className="text-2xl">06</p>
-                    <p className="text-sm">09:45</p>
+                <div className="flex flex-[1] flex-col items-center justify-center border-l border-solid border-secondary">
+                    <p className="text-sm capitalize">{getMonth(booking?.date)}</p>
+                    <p className="text-2xl">{getDate(booking?.date)}</p>
+
+                    <p className="text-sm">{getHour(booking?.date)}</p>
                 </div>
             </CardContent>
         </Card>
