@@ -2,30 +2,80 @@ import { BookingItem } from '@/components/booking-item'
 import { Header } from '@/components/header'
 import { authOptions } from '@/lib/authOptions'
 import db from '@/lib/db'
-import { isFuture, isPast } from 'date-fns'
 import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
 
 export default async function BookingsPage() {
     const session = await getServerSession(authOptions)
 
-    const bookings = await db.booking.findMany({
-        orderBy: {
-            date: 'asc',
-        },
-        where: {
-            userId: session?.user.id,
-        },
-        include: {
-            service: true,
-            barbershop: true,
-        },
-    })
+    // const confirmedBookings = await db.booking.findMany({
+    //     orderBy: {
+    //         date: 'asc',
+    //     },
+    //     where: {
+    //         userId: session?.user.id,
+    //         date: {
+    //             gte: new Date(),
+    //         },
+    //     },
+    //     include: {
+    //         service: true,
+    //         barbershop: true,
+    //     },
+    // })
+
+    // const finishedBookings = await db.booking.findMany({
+    //     orderBy: {
+    //         date: 'asc',
+    //     },
+    //     where: {
+    //         userId: session?.user.id,
+    //         date: {
+    //             lt: new Date(),
+    //         },
+    //     },
+    //     include: {
+    //         service: true,
+    //         barbershop: true,
+    //     },
+    // })
+    const [confirmedBookings, finishedBookings] = await Promise.all([
+        db.booking.findMany({
+            orderBy: {
+                date: 'asc',
+            },
+            where: {
+                userId: session?.user.id,
+                date: {
+                    gte: new Date(),
+                },
+            },
+            include: {
+                service: true,
+                barbershop: true,
+            },
+        }),
+        db.booking.findMany({
+            orderBy: {
+                date: 'asc',
+            },
+            where: {
+                userId: session?.user.id,
+                date: {
+                    lt: new Date(),
+                },
+            },
+            include: {
+                service: true,
+                barbershop: true,
+            },
+        }),
+    ])
 
     if (!session?.user) return redirect('/')
 
-    const confirmedBookings = bookings.filter((booking) => isFuture(booking.date))
-    const finishedBookings = bookings.filter((booking) => isPast(booking.date)).toReversed()
+    // const confirmedBookings = bookings.filter((booking) => isFuture(booking.date))
+    // const finishedBookings = bookings.filter((booking) => isPast(booking.date)).toReversed()
     return (
         <>
             <Header />
