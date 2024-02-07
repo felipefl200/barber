@@ -36,7 +36,9 @@ export default async function Home() {
             <Header />
             <div className="mx-auto max-w-3xl">
                 <div className="p-5 pt-5">
-                    <h2 className="text-xl font-bold">Olá, {session?.user.name || 'Visitante'}</h2>
+                    <h2 className="text-xl font-bold">
+                        Olá, {session?.user.name?.split(' ')[0] || 'vamos agendar um corte hoje ?'}
+                    </h2>
                     <p className="text-sm capitalize">{formatDate(new Date())}</p>
                 </div>
                 <div className="mt-6 px-5">
