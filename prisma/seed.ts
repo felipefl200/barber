@@ -4,6 +4,10 @@ import db from "../src/lib/db"
 
 // const prisma = new PrismaClient();
 
+const randomPhone = () => {
+  return `(${Math.floor(Math.random() * 10)}${Math.floor(Math.random() * 10)}) ${Math.floor(Math.random() * 10000)}-${Math.floor(Math.random() * 10000)}`;
+}
+
 
 async function seedDatabase() {
   try {
@@ -107,6 +111,8 @@ async function seedDatabase() {
         data: {
           name,
           address,
+          phones: [randomPhone(), randomPhone()],
+          whatsapp: randomPhone(),
           imageUrl: imageUrl,
         },
       });

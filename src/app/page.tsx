@@ -46,7 +46,7 @@ export default async function Home() {
                     <div className="mb-3 pl-5 text-sm font-bold uppercase text-gray-400">Agendamentos</div>
                     <div className="flex gap-4 overflow-x-auto px-5 [&::-webkit-scrollbar]:hidden">
                         {confirmedBookings.length > 0
-                            ? confirmedBookings.map((booking) => <BookingItem booking={booking} />)
+                            ? confirmedBookings.map((booking) => <BookingItem key={booking.id} booking={booking} />)
                             : 'Nenhum agendamento encontrado'}
                     </div>
                 </div>

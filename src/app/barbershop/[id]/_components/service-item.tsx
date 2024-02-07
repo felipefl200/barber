@@ -14,10 +14,10 @@ import { generateDayTimeList } from '@/utils/hours'
 import { format } from 'date-fns/format'
 import { saveBooking } from '@/actions/save-booking'
 import { setHours, setMinutes } from 'date-fns'
-import { Loader2 } from 'lucide-react'
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
 import { getDayBookings } from '@/actions/get-day-bookings'
+import { Icons } from '@/components/icons'
 
 interface ServiceItemProps {
     barbershop: Barbershop
@@ -195,7 +195,7 @@ export function ServiceItem({ service, isAuthenticated, barbershop }: ServiceIte
                                     <SheetFooter className="px-5">
                                         <Button onClick={handleBookingSubmit} disabled={!hour || !date || isLoading}>
                                             Confirmar Reserva
-                                            {isLoading && <Loader2 className="ml-2 h-4 w-4 animate-spin" />}
+                                            {isLoading && <Icons.spinner className="ml-2 h-4 w-4 animate-spin" />}
                                         </Button>
                                     </SheetFooter>
                                 </SheetContent>

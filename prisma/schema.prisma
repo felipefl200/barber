@@ -24,6 +24,8 @@ model Barbershop {
   id        String    @id @default(uuid())
   name      String
   address   String
+  phones    String[]
+  whatsapp  String
   imageUrl  String
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
