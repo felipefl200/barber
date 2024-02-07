@@ -1,6 +1,7 @@
 'use server'
 
-import db from "@/lib/db"
+import db from '@/lib/db'
+import { revalidatePath } from 'next/cache'
 
 interface SaveBookingProps {
     barbershopId: string
@@ -19,6 +20,7 @@ export const saveBooking = async (params: SaveBookingProps) => {
                 date: new Date(params.date)
             }
         })
+        revalidatePath('/bookings')
         return booking
     } catch {
         return null

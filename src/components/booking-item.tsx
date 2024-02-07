@@ -24,6 +24,16 @@ import { stripCaracters } from '@/utils/regex-phone'
 import { cancelBooking } from '@/actions/cancel-booking'
 import { toast } from 'sonner'
 import { useState } from 'react'
+import {
+    Dialog,
+    DialogClose,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from '@/components/ui/dialog'
 
 interface BookingItemProps {
     booking: Prisma.BookingGetPayload<{
@@ -182,15 +192,34 @@ export function BookingItem({ booking }: BookingItemProps) {
                                     Voltar
                                 </Button>
                             </SheetClose>
-                            <Button
-                                onClick={handleCancelClick}
-                                disabled={isPast(booking.date) || isLoading}
-                                className="w-full"
-                                variant="destructive"
-                            >
-                                Cancelar Reserva
-                                {isLoading && <Icons.spinner className="h-4 w-4 animate-spin" />}
-                            </Button>
+                            <Dialog>
+                                <DialogTrigger>
+                                    <Button className="w-full" variant="destructive">
+                                        Cancelar Reserva
+                                        {isLoading && <Icons.spinner className="h-4 w-4 animate-spin" />}
+                                    </Button>
+                                </DialogTrigger>
+                                <DialogContent className='w-[90%] rounded'>
+                                    <DialogHeader>
+                                        <DialogTitle>Confirma o cancelamento ?</DialogTitle>
+                                        <DialogDescription>Essa ação não pode ser desfeita.</DialogDescription>
+                                    </DialogHeader>
+                                    <DialogFooter className="flex flex-col gap-3">
+                                        <Button
+                                            onClick={handleCancelClick}
+                                            disabled={isPast(booking.date) || isLoading}
+                                            variant="destructive"
+                                        >
+                                            Cancelar
+                                        </Button>
+                                        <DialogClose>
+                                            <Button className="w-full" variant="secondary">
+                                                Voltar
+                                            </Button>
+                                        </DialogClose>
+                                    </DialogFooter>
+                                </DialogContent>
+                            </Dialog>
                         </div>
                     </div>
                 </SheetFooter>
