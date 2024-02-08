@@ -1,6 +1,6 @@
 'use client'
 import Link from 'next/link'
-import { SheetHeader, SheetTitle } from '@/components/ui/sheet'
+import { SheetClose, SheetHeader, SheetTitle } from '@/components/ui/sheet'
 import { Avatar, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import { GitHubLogoIcon } from '@radix-ui/react-icons'
@@ -41,19 +41,23 @@ export function SideMenu() {
                 </div>
             )}
             <div className="flex flex-col gap-3 px-5">
-                <Button variant="outline" className="justify-start" asChild>
-                    <Link href="/">
-                        <HomeIcon size={18} className="mr-2" />
-                        Inicio
-                    </Link>
-                </Button>
-                {data?.user && (
+                <SheetClose asChild>
                     <Button variant="outline" className="justify-start" asChild>
-                        <Link href="/bookings">
-                            <CalendarIcon size={18} className="mr-2" />
-                            Agendamentos
+                        <Link href="/">
+                            <HomeIcon size={18} className="mr-2" />
+                            Inicio
                         </Link>
                     </Button>
+                </SheetClose>
+                {data?.user && (
+                    <SheetClose asChild>
+                        <Button variant="outline" className="justify-start" asChild>
+                            <Link href="/bookings">
+                                <CalendarIcon size={18} className="mr-2" />
+                                Agendamentos
+                            </Link>
+                        </Button>
+                    </SheetClose>
                 )}
             </div>
         </>

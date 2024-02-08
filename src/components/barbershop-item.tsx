@@ -17,7 +17,7 @@ export function BarbershopItem({ barbershop }: BarbershopItemsProps) {
         router.push(`/barbershop/${barbershop.id}`)
     }
     return (
-        <Card className="min-w-[167px] max-w-[167px] dark:rounded-2xl">
+        <Card className="min-w-full max-w-full dark:rounded-2xl">
             <CardContent className="p-0">
                 <div className="relative h-[159px] w-full px-1">
                     <Badge

@@ -34,6 +34,7 @@ import {
     DialogTitle,
     DialogTrigger,
 } from '@/components/ui/dialog'
+import { cn } from '@/lib/utils'
 
 interface BookingItemProps {
     booking: Prisma.BookingGetPayload<{
@@ -193,13 +194,17 @@ export function BookingItem({ booking }: BookingItemProps) {
                                 </Button>
                             </SheetClose>
                             <Dialog>
-                                <DialogTrigger>
-                                    <Button className="w-full" variant="destructive">
+                                <DialogTrigger asChild>
+                                    <Button
+                                        disabled={isPast(booking.date)}
+                                        className="w-full disabled:cursor-not-allowed"
+                                        variant="destructive"
+                                    >
                                         Cancelar Reserva
                                         {isLoading && <Icons.spinner className="h-4 w-4 animate-spin" />}
                                     </Button>
                                 </DialogTrigger>
-                                <DialogContent className='w-[90%] rounded'>
+                                <DialogContent className="w-[90%] rounded">
                                     <DialogHeader>
                                         <DialogTitle>Confirma o cancelamento ?</DialogTitle>
                                         <DialogDescription>Essa ação não pode ser desfeita.</DialogDescription>
@@ -212,8 +217,8 @@ export function BookingItem({ booking }: BookingItemProps) {
                                         >
                                             Cancelar
                                         </Button>
-                                        <DialogClose>
-                                            <Button className="w-full" variant="secondary">
+                                        <DialogClose asChild>
+                                            <Button type="button" variant="secondary">
                                                 Voltar
                                             </Button>
                                         </DialogClose>

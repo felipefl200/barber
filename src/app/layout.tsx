@@ -22,9 +22,11 @@ export default function RootLayout({
         <html lang="pt-br" suppressHydrationWarning>
             <body className={inter.className}>
                 <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-                    <Toaster />
-                    <AuthProvider>{children}</AuthProvider>
-                    <Footer />
+                    <AuthProvider>
+                        <Toaster />
+                        {children}
+                        <Footer />
+                    </AuthProvider>
                 </ThemeProvider>
             </body>
         </html>
