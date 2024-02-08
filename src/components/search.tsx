@@ -5,7 +5,7 @@ import { SearchIcon } from 'lucide-react'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Form, FormField, FormItem, FormLabel, FormControl, FormDescription, FormMessage } from '@/components/ui/form'
+import { Form, FormField, FormItem, FormControl, FormMessage } from '@/components/ui/form'
 import { useRouter } from 'next/navigation'
 
 const formSchema = z.object({
@@ -16,14 +16,15 @@ const formSchema = z.object({
         .min(1, 'Campo obrigatório')
         .trim(),
 })
+interface SearchProps {
+    defaultValues?: z.infer<typeof formSchema>
+}
 
-export function Search() {
+export function Search({ defaultValues }: SearchProps) {
     const router = useRouter()
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
-        defaultValues: {
-            search: '',
-        },
+        defaultValues,
     })
 
     const handleSubmit = (data: z.infer<typeof formSchema>) => {
@@ -46,7 +47,7 @@ export function Search() {
                             </FormItem>
                         )}
                     />
-                    <Button variant="default" type="submit">
+                    <Button variant="default" type="submit" className="border-none">
                         <SearchIcon />
                     </Button>
                 </form>
