@@ -1,6 +1,7 @@
 import { BarbershopItem } from '@/components/barbershop-item'
 import { Header } from '@/components/header'
 import db from '@/lib/db'
+import { redirect, useRouter } from 'next/navigation'
 
 interface BarberShopsPageProps {
     searchParams: {
@@ -8,6 +9,9 @@ interface BarberShopsPageProps {
     }
 }
 export default async function BarberShopsPage({ searchParams }: BarberShopsPageProps) {
+    
+    if (!searchParams.search) return redirect('/')
+
     const barberShops = await db.barbershop.findMany({
         where: {
             name: {
