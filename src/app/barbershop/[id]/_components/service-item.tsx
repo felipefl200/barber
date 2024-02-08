@@ -31,13 +31,13 @@ export function ServiceItem({ service, isAuthenticated, barbershop }: ServiceIte
     const [hour, setHour] = useState<string | undefined>()
     const [isSheetIsOpen, setSheetIsOpen] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
-    const [dayBookings, setDatBookings] = useState<Booking[]>([])
+    const [dayBookings, setDaysBookings] = useState<Booking[]>([])
 
     useEffect(() => {
         if (!date) return
         const refreshAvailableHours = async () => {
             const dayBookingsDB = await getDayBookings(barbershop.id, date)
-            setDatBookings(dayBookingsDB)
+            setDaysBookings(dayBookingsDB)
         }
         refreshAvailableHours()
     }, [date, barbershop.id])
